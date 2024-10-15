@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FaceSnapListComponent } from './face-snap-list/face-snap-list.component';
 import { HeaderComponent } from './header/header.component';
+import { RouterOutlet } from '@angular/router';
 
 
 
@@ -8,13 +8,13 @@ import { HeaderComponent } from './header/header.component';
   selector: 'app-root',
   standalone: true,
   imports: [
-    FaceSnapListComponent,
-    HeaderComponent
+    HeaderComponent,
+    RouterOutlet
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
-export class AppComponen {
+export class AppComponent {
   
 }
 

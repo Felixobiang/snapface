@@ -4,7 +4,7 @@ import { NgStyle, NgClass, LowerCasePipe, UpperCasePipe, TitleCasePipe, DatePipe
 import { FaceSnapService } from '../services/face-snaps.service';
 import { RouterLink } from '@angular/router';
 @Component({
-  selector: 'app-face-snap',
+  selector: 'app-single-face-snap',
   standalone: true,
   imports: [
     NgStyle,
@@ -13,10 +13,10 @@ import { RouterLink } from '@angular/router';
     DatePipe,
     RouterLink
     ],
-  templateUrl: './face-snap.component.html',
-  styleUrl: './face-snap.component.scss'
+  templateUrl: './single-face-snap.component.html',
+  styleUrl: './single-face-snap.component.scss'
 })
-export class FaceSnapComponent implements OnInit{
+export class SingleFaceSnapComponent implements OnInit{
   @Input() faceSnap!: FaceSnap;
 
   constructor(private faceSnapService :FaceSnapService){};
