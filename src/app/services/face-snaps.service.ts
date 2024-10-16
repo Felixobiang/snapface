@@ -37,14 +37,20 @@ new Date(),
 
     return[...this.faceSnaps]
   }
-  snapFaceSnapById(faceSnapId : string, snapType : SnapType){
 
+  getFaceSnapById(faceSnapId:String): FaceSnap{
     const foundFaceSnap= this.faceSnaps.find(faceSnap =>faceSnap.id ===faceSnapId);
     if (!foundFaceSnap){
 
         throw new Error('facesnap not found')
     }
-    foundFaceSnap.snap(snapType);
+    return foundFaceSnap
+  };
+
+  snapFaceSnapById(faceSnapId : string, snapType : SnapType){
+
+    const faceSnap= this.getFaceSnapById(faceSnapId);
+    faceSnap.snap(snapType);
 
     
   }
