@@ -30,7 +30,21 @@ new FaceSnap(
 'https://tuto-photos.com/wp-content/uploads/2018/06/Quels-sont-les-diff%C3%A9rents-types-dappareils-photo-num%C3%A9rique.jpg',
 new Date(),
 186
-)
+),
+new FaceSnap(
+  'Three Rock Mountain',
+  'Un endroit magnifique pour les randonnées.',
+  'https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Three_Rock_Mountain_Southern_Tor.jpg/2880px-Three_Rock_Mountain_Southern_Tor.jpg',
+  new Date(),
+  227
+  ),
+  new FaceSnap(
+    'Un bon repas',
+    'Mmmh que c\'est bon !',
+    'https://wtop.com/wp-content/uploads/2020/06/HEALTHYFRESH.jpg',
+     new Date(),
+    101
+    )
 
   ];
   getFacceSnap():FaceSnap[]{
