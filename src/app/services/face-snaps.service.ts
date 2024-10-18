@@ -68,6 +68,39 @@ new FaceSnap(
 
     
   }
+  addFaceSnap(formValue: { title: string, description: string, imageUrl: string, location?: string }) {
+    const faceSnap: FaceSnap = {
+      ...formValue,
+      snaps: 0,
+      createdAt: new Date(),
+      id: crypto.randomUUID().substring(0, 4),
+      addSnap():void {
 
+        this.snaps++;
+    },
+    
+    removeSnap():void{
+      this.snaps--;
+  },
+  snap(snapType : SnapType){
+    if(snapType ==='snap'){
+    this.addSnap
+    }
+    else if (snapType==='unsnap'){
+    this.removeSnap
+    }
+    
+    },
+    setLocation(location: string): void {
+      this.location = location;
+      
+    },
+    withHashLocation(location:string):FaceSnap{
+      this.setLocation(location);
+      return this;
+  }
+    };
+    this.faceSnaps.push(faceSnap);
+}
   
 }
