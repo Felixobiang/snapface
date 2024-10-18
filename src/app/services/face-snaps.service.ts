@@ -1,6 +1,9 @@
 import { Injectable } from "@angular/core";
 import { FaceSnap } from "../models/face-snap";
 import { SnapType } from "../models/snap-type.type";
+import { HttpClient } from "@angular/common/http";
+import { Observable } from "rxjs";
+
 
 @Injectable({
 providedIn:'root'
@@ -8,51 +11,15 @@ providedIn:'root'
 )
 
 export class FaceSnapService{
+constructor(private http : HttpClient){}
+private faceSnaps : FaceSnap[]= [];
 
-private faceSnaps : FaceSnap[]= [
-    new FaceSnap(
-      'Archibald',
-      'Mon meilleur ami depuis toujours !',
-      'https://cdn.pixabay.com/photo/2015/05/31/16/03/teddy-bear-792273_1280.jpg',
-      new Date(),
-      0
- ),
- new FaceSnap(
-  'Montre connecte apple',
-  'Cette montre va sous eau !',
-  'https://boutique.orange.fr/nouveautes/apple/watch-montre-connectee/img/watch-ultra2.jpg',
-  new Date(),
-  96
-).withHashLocation('Aux salons de la technology 2024'),
-new FaceSnap(
-'Appareil photo HD',
-'ce sont des appareil au nombre de pixel eleve!',
-'https://tuto-photos.com/wp-content/uploads/2018/06/Quels-sont-les-diff%C3%A9rents-types-dappareils-photo-num%C3%A9rique.jpg',
-new Date(),
-186
-),
-new FaceSnap(
-  'Three Rock Mountain',
-  'Un endroit magnifique pour les randonnées.',
-  'https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Three_Rock_Mountain_Southern_Tor.jpg/2880px-Three_Rock_Mountain_Southern_Tor.jpg',
-  new Date(),
-  227
-  ),
-  new FaceSnap(
-    'Un bon repas',
-    'Mmmh que c\'est bon !',
-    'https://wtop.com/wp-content/uploads/2020/06/HEALTHYFRESH.jpg',
-     new Date(),
-    101
-    )
+  getFacceSnap(): Observable<FaceSnap[]>{
 
-  ];
-  getFacceSnap():FaceSnap[]{
-
-    return[...this.faceSnaps]
+    return this.http.get<FaceSnap[]>('http://localhost:3000/faceSnaps');
   }
 
-  getFaceSnapById(faceSnapId:String): FaceSnap{
+  getFaceSnapById(faceSnapId:number): FaceSnap{
     const foundFaceSnap= this.faceSnaps.find(faceSnap =>faceSnap.id ===faceSnapId);
     if (!foundFaceSnap){
 
@@ -61,46 +28,25 @@ new FaceSnap(
     return foundFaceSnap
   };
 
-  snapFaceSnapById(faceSnapId : string, snapType : SnapType){
 
-    const faceSnap= this.getFaceSnapById(faceSnapId);
-    faceSnap.snap(snapType);
-
-    
-  }
   addFaceSnap(formValue: { title: string, description: string, imageUrl: string, location?: string }) {
     const faceSnap: FaceSnap = {
       ...formValue,
       snaps: 0,
-      createdAt: new Date(),
-      id: crypto.randomUUID().substring(0, 4),
-      addSnap():void {
-
-        this.snaps++;
-    },
+      createdDate: new Date(),
+      id: this.faceSnaps[this.faceSnaps.length - 1].id + 1
     
-    removeSnap():void{
-      this.snaps--;
-  },
-  snap(snapType : SnapType){
-    if(snapType ==='snap'){
-    this.addSnap
-    }
-    else if (snapType==='unsnap'){
-    this.removeSnap
-    }
-    
-    },
-    setLocation(location: string): void {
-      this.location = location;
-      
-    },
-    withHashLocation(location:string):FaceSnap{
-      this.setLocation(location);
-      return this;
-  }
     };
     this.faceSnaps.push(faceSnap);
+
 }
-  
+   getAllFaceSnaps(): FaceSnap[] {
+    return this.faceSnaps;
+  }
+
+
+  snapFaceSnapById(faceSnapId: number, snapType: 'snap' | 'unsnap'): void {
+    const faceSnap = this.getFaceSnapById(faceSnapId);
+    snapType === 'snap' ? faceSnap.snaps++ : faceSnap.snaps--;
+  }
 }
