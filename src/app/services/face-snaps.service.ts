@@ -19,13 +19,8 @@ private faceSnaps : FaceSnap[]= [];
     return this.http.get<FaceSnap[]>('http://localhost:3000/faceSnaps');
   }
 
-  getFaceSnapById(faceSnapId:number): FaceSnap{
-    const foundFaceSnap= this.faceSnaps.find(faceSnap =>faceSnap.id ===faceSnapId);
-    if (!foundFaceSnap){
-
-        throw new Error('facesnap not found')
-    }
-    return foundFaceSnap
+  getFaceSnapById(faceSnapId:number): Observable <FaceSnap>{
+    return this.http.get<FaceSnap>(`http://localhost:3000/faceSnaps/${faceSnapId}`);
   };
 
 
@@ -44,7 +39,7 @@ private faceSnaps : FaceSnap[]= [];
 
 
   snapFaceSnapById(faceSnapId: number, snapType: 'snap' | 'unsnap'): void {
-    const faceSnap = this.getFaceSnapById(faceSnapId);
-    snapType === 'snap' ? faceSnap.snaps++ : faceSnap.snaps--;
+   // const faceSnap = this.getFaceSnapById(faceSnapId);
+    //snapType === 'snap' ? faceSnap.snaps++ : faceSnap.snaps--;
   }
 }
