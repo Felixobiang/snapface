@@ -38,13 +38,17 @@ private faceSnaps : FaceSnap[]= [];
   
 
 
-  snapFaceSnapById(faceSnapId: number, snapType: 'snap' | 'unsnap'): Observable <FaceSnap> {
-   return this.getFaceSnapById(faceSnapId).pipe(
-  map(faceSnap =>({
-    ...faceSnap,
-    snaps: faceSnap.snaps + (snapType==='snap'? +1 : -1)
-  })),
-  switchMap(updatedFaceSnap => this.http.put<FaceSnap>(`http://localhost:3000/faceSnaps/${faceSnapId}`,updatedFaceSnap))
-)};
+snapFaceSnapById(faceSnapId: number, snapType: 'snap' | 'unsnap'): Observable<FaceSnap> {
+  return this.getFaceSnapById(faceSnapId).pipe(
+      map(faceSnap => ({
+          ...faceSnap,
+          snaps: faceSnap.snaps + (snapType === 'snap' ? 1 : -1)
+      })),
+      switchMap(updatedFaceSnap => this.http.put<FaceSnap>(
+          `http://localhost:3000/facesnaps/${faceSnapId}`,
+          updatedFaceSnap)
+      )
+  );
+}
    
   }

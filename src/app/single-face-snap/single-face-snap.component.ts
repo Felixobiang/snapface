@@ -25,23 +25,25 @@ export class SingleFaceSnapComponent implements OnInit{
 
   constructor(private faceSnapService :FaceSnapService, private route : ActivatedRoute){};
 
-  snapButtonText!: string;
+  buttonText!: string;
   
 
   ngOnInit(): void {
-   this.snapButtonText='oh Snap!';
+   this.buttonText='oh Snap!';
    const faceSnapId=+this.route.snapshot.params["id"];
    this.faceSnap$=this.faceSnapService.getFaceSnapById(faceSnapId);
 }
-  onSnap(faceSnapId : number) {
-    if( this.snapButtonText === 'Oh Snap!')
-      {this.faceSnapService.snapFaceSnapById(faceSnapId,'snap').pipe(
-        tap(() => this.snapButtonText = 'Oops, unSnap!')
-    );}
-    else {this.faceSnapService.snapFaceSnapById(faceSnapId,'unsnap').pipe(
-      tap(() => this.snapButtonText = 'Oh Snap!')
-  );}
+onSnap(faceSnapId: number) {
+  if (this.buttonText === 'Oh Snap!') {
+      this.faceSnap$ = this.faceSnapService.snapFaceSnapById(faceSnapId, 'snap').pipe(
+          tap(() => this.buttonText = 'Oops, unSnap!')
+      );
+  } else {
+      this.faceSnap$ = this.faceSnapService.snapFaceSnapById(faceSnapId, 'unsnap').pipe(
+          tap(() => this.buttonText = 'Oh Snap!')
+      );
   }
+}
 
 
 

@@ -12,7 +12,8 @@
 <p>Mis en ligne le {{ faceSnap.createdDate | date: 'd MMMM yyyy, à HH:mm'  }}</p>
 <p>{{ faceSnap.description }}</p>
 <p>
-    <button  (click)="onSnap(faceSnap.id)">{{ snapButtonText }}</button> 
+    
+<button (click)="onSnap(faceSnap.id)">{{ buttonText }}</button> 
     <span [ngStyle]="{ color: 'rgb(0, ' + faceSnap.snaps + ', 0)' }">🤌 {{ faceSnap.snaps }}</span>
 </p>
 </div>
