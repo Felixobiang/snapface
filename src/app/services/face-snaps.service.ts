@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { FaceSnap } from "../models/face-snap";
 import { SnapType } from "../models/snap-type.type";
 import { HttpClient } from "@angular/common/http";
-import { Observable } from "rxjs";
+import { map, Observable, switchMap } from "rxjs";
 
 
 @Injectable({
@@ -38,8 +38,13 @@ private faceSnaps : FaceSnap[]= [];
   
 
 
-  snapFaceSnapById(faceSnapId: number, snapType: 'snap' | 'unsnap'): void {
-   // const faceSnap = this.getFaceSnapById(faceSnapId);
-    //snapType === 'snap' ? faceSnap.snaps++ : faceSnap.snaps--;
+  snapFaceSnapById(faceSnapId: number, snapType: 'snap' | 'unsnap'): Observable <FaceSnap> {
+   return this.getFaceSnapById(faceSnapId).pipe(
+  map(faceSnap =>({
+    ...faceSnap,
+    snaps: faceSnap.snaps + (snapType==='snap'? +1 : -1)
+  })),
+  switchMap(updatedFaceSnap => this.http.put<FaceSnap>(`http://localhost:3000/faceSnaps/${faceSnapId}`,updatedFaceSnap))
+)};
+   
   }
-}
