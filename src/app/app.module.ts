@@ -9,13 +9,30 @@ import { FaceSnapListComponent } from './face-snap-list/face-snap-list.component
 import { HeaderComponent } from './header/header.component';
 import { LandingPageComponent } from './landing-page/landing-page.component';
 import { SingleFaceSnapComponent } from './single-face-snap/single-face-snap.component';
+import { httpInterceptorProviders } from './interceptors';
+import { AppRoutingModule } from './app.routes';
 
+@NgModule({
+  declarations: [
+   AppComponent,
+   FaceSnapComponent,
+   SingleFaceSnapComponent,
+   LandingPageComponent,
+   FaceSnapListComponent,
+   HeaderComponent
+  ],
 imports: [
-NgForm,
+BrowserModule,
 FormsModule,
 ReactiveFormsModule,
-FormGroup,
-]
+AppRoutingModule
+],
+providers: [
+  { provide: LOCALE_ID, useValue: 'fr-FR' },
+  httpInterceptorProviders
+],
+
+})
 export class AppModule {
   constructor() {
     registerLocaleData(fr.default);
