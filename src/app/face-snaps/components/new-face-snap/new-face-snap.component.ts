@@ -3,8 +3,8 @@ import { FormBuilder, FormGroup,ReactiveFormsModule, Validators } from '@angular
 import {  async, Observable } from 'rxjs';
 import { NgIf,  UpperCasePipe,DatePipe,AsyncPipe } from '@angular/common';
 import { map, tap } from 'rxjs/operators';
-import { FaceSnap } from '../models/face-snap';
-import { FaceSnapService } from '../services/face-snaps.service';
+import { FaceSnap } from '../../../core/models/face-snap';
+import { FaceSnapService } from '../../../core/services/face-snaps.service';
 import { Router } from '@angular/router';
 
 
